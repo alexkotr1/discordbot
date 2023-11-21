@@ -26,7 +26,7 @@ async function request(message, retryCount = 0) {
         });
 
         const response = await instance.post('/images/generations', {
-            model: 'dall-e-3',
+            model: 'kandinsky-2.2',
             prompt,
         });
 
