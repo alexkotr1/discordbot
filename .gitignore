@@ -129,3 +129,6 @@ dist
 
 #sounds
 sounds/*
+
+#AI Pretext
+commands/AI/AIPretext.txt
