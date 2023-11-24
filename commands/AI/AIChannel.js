@@ -1,5 +1,4 @@
 const pool = require('../../DB')
-
 class AIChannel {
     constructor(channel_id, guild_id) {
         this.channel_id = channel_id;
