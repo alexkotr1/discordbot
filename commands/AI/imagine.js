@@ -3,6 +3,7 @@ const axios = require('axios');
 const Helper = require("../../Helper")
 const MAX_RETRY_COUNT = 5;
 const RETRY_DELAY_MS = 1000;
+
 function imagine() {
     client.on("messageCreate", async message => {
         if (message.author.bot || !message.content.startsWith("!imagine")) return undefined;
