@@ -3,12 +3,13 @@ const { SongQueue } = require('./SongQueue.js');
 const { Song } = require('./Song.js')
 const { client } = require("../../Client.js")
 const yts = require('yt-search')
+const Helper = require('../../Helper.js')
 
 var hasPause = true;
 let songqueue;
 function play() {
   client.on('messageCreate', async (message) => {
-    if (!message.content.startsWith('!play') || message.author.bot) return undefined
+    if (!(await Helper.checkCommand(message, "play"))) return undefined;
     const args = message.content.split(' ');
     var url = args.slice(1).join(" ")
     if (!url) return message.reply('Please provide a valid YouTube URL.');

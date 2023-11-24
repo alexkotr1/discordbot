@@ -4,8 +4,7 @@ const Helper = require('../../Helper.js')
 const emitter = require('../../Emitter.js')
 function remove() {
   client.on("messageCreate", async (message) => {
-    if (message.author.bot || !message.content.startsWith("!remove"))
-      return undefined;
+    if (!(await Helper.checkCommand(message, "remove"))) return undefined;
     Helper.removeMessage(message);
     const args = message.content.split(" ");
     args.shift();

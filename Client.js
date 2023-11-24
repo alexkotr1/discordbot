@@ -16,12 +16,15 @@ const client = new Client({
 
 emitter.on("requestHerbertData", () => emitter.emit("receiveHerbertData", herbert))
 
-emitter.requestHerbertData = async function () {
+emitter.requestHerbertData = async function (guild_id) {
   return new Promise(resolve => {
-    emitter.once("receiveHerbertData", data => resolve(data))
+    emitter.once("receiveHerbertData", data => {
+      resolve(guild_id ? data.guilds.get(guild_id) : data)
+    })
     emitter.emit("requestHerbertData")
   })
 }
+
 
 client.on("ready", async () => {
   console.log(`Logged in as ${client.user.tag}!`);

@@ -5,7 +5,7 @@ const Helper = require('../../Helper')
 const SoundBoardChannel = require("../Soundboard/SoundboardChannel")
 function setchannel() {
     client.on("messageCreate", async message => {
-        if (message.author.bot || !message.member.permissions.has(PermissionsBitField.Flags.Administrator) || message.content !== "!setchannel") return undefined;
+        if (!(await Helper.checkCommand(message, "setchannel")) || !message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return undefined
         const selected = await Helper.userinput(message.channel, ["Soundboard Channel", "AI Chat Channel"], "Channel Selection", "Please provide which type of channel you would like to select")
         if (selected === "Soundboard Channel") {
             const db_channel = new SoundBoardChannel(

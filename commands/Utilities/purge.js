@@ -3,7 +3,7 @@ const Helper = require("../../Helper.js");
 const { PermissionsBitField } = require('discord.js')
 function purge() {
   client.on("messageCreate", async (message) => {
-    if (message.author.bot || !message.content.startsWith("!purge")) return undefined;
+    if (!(await Helper.checkCommand(message, "purge"))) return undefined;
     if (!message.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) return Helper.prompt(message, "You don't have permissions to delete messages!")
     Helper.removeMessage(message);
     const args = message.content.split(" ");

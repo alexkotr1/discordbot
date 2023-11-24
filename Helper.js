@@ -1,4 +1,5 @@
 const { EmbedBuilder, ButtonBuilder, ActionRowBuilder } = require("discord.js")
+const emitter = require('./Emitter')
 
 class Helper {
   constructor() { }
@@ -33,6 +34,12 @@ class Helper {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  static async checkCommand(message, command) {
+    if (message.author.bot || !message.content.includes(command)) return false;
+    const herbertGuild = await emitter.requestHerbertData(message.guild.id)
+    return message.content.startsWith(herbertGuild.Prefix + command)
   }
 
   static async userinput(channel, choices, title, description) {
