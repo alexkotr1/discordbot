@@ -29,17 +29,19 @@ async function request(message, retryCount = 0) {
             model: 'kandinsky-2.2',
             prompt,
         });
-
         if (response.data.error) throw new Error(response.error);
-        console.log(response)
-        const attachments = response.data.data.map((item, i) => {
-            return { attachment: item.url, name: `prompt#${i}.png` };
-        });
-
+        var attachments;
+        const data = response.data.data;
+        if (Array.isArray(data)) {
+            attachments = response.data.data.map((item, i) => {
+                return { attachment: item.url, name: `prompt#${i}.png` };
+            });
+        } else {
+            attachments = [{ attachment: data.url, name: "prompt.png" }]
+        }
         await message.channel.send({ files: attachments, content: `<@${message.author.id}>\`\`\`${prompt}\`\`\`` });
     } catch (err) {
         console.error("Error occurred:", err.message);
-
         if (retryCount < MAX_RETRY_COUNT) {
             setTimeout(() => request(message, retryCount + 1), RETRY_DELAY_MS);
         } else {
