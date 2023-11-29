@@ -1,7 +1,6 @@
 const { client } = require('../../Client');
 const Helper = require('../../Helper');
 const { inspect } = require('util');
-const { MessageActionRow, MessageButton } = require('discord.js');
 function evaluate() {
     client.on("messageCreate", async (message) => {
         if (message.author.bot || !(await Helper.checkCommand(message, "eval") || message.author.id !== "198005161807970304")) return undefined;
@@ -16,7 +15,7 @@ function evaluate() {
         let hrDiff;
         try {
             const hrStart = process.hrtime();
-            const lastResult = evalAsync(message, script);
+            const lastResult = eval(script);
             hrDiff = process.hrtime(hrStart);
 
             const result = makeResultMessages(lastResult, hrDiff, script);
@@ -28,9 +27,7 @@ function evaluate() {
     });
 }
 
-async function evalAsync(message, script) {
-    return eval(`(async () => { ${script} })()`);
-}
+
 
 
 function makeResultMessages(result, hrDiff, input = null) {
