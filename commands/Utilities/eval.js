@@ -3,7 +3,9 @@ const Helper = require('../../Helper');
 const { inspect } = require('util');
 function evaluate() {
     client.on("messageCreate", async (message) => {
-        if (message.author.bot || !(await Helper.checkCommand(message, "eval") || message.author.id !== "198005161807970304")) return undefined;
+        const isCommand = await Helper.checkCommand(message, "eval")
+        console.log(isCommand)
+        if (message.author.bot || !isCommand || message.author.id !== "198005161807970304") return undefined;
 
         const args = message.content.replace("!eval", "").split(" ");
         let script = args.slice(1).join(" ");
