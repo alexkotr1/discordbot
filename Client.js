@@ -1,15 +1,11 @@
 require("dotenv").config();
-const { Client, GatewayIntentBits } = require("discord.js");
+const { GatewayIntentBits, Client } = require("discord.js");
 const { Herbert } = require('./Herbert');
 const emitter = require('./Emitter');
 var herbert = new Herbert();
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.MessageContent,
-  ],
+  intents: [GatewayIntentBits.MessageContent, GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
+  loadMessageCommandListeners: true
 });
 
 
@@ -23,6 +19,10 @@ emitter.requestHerbertData = async function (guild_id) {
     })
     emitter.emit("requestHerbertData")
   })
+}
+
+emitter.updateGuildData = async function (guild) {
+  emitter.emit("updateHerbertData_" + guild.id, guild)
 }
 
 
