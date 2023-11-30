@@ -4,10 +4,9 @@ const { Herbert } = require('./Herbert');
 const emitter = require('./Emitter');
 var herbert = new Herbert();
 const client = new Client({
-  intents: [GatewayIntentBits.MessageContent, GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
+  intents: [GatewayIntentBits.MessageContent, GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildVoiceStates],
   loadMessageCommandListeners: true
 });
-
 
 
 emitter.on("requestHerbertData", () => emitter.emit("receiveHerbertData", herbert))
