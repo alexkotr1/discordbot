@@ -8,7 +8,7 @@ function spamping() {
         const args = message.content.split(" ").slice(1)
         var answered = false;
         const id = args[0].replace(/[<>!@]/g,"")
-        const filter = (newMessage) => newMessage.author.id === id;
+        const filter = (newMessage) => newMessage.author.id === id || (newMessage.author.id === message.author.id && newMessage.content.toLowerCase().includes("stop"));
         const collector = message.channel.createMessageCollector({ filter, time: 0 });
         const messages = []
         collector.on("collect", () => {
